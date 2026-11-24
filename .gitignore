@@ -35,6 +35,7 @@ coverage/
 src-tauri/target/
 src-tauri/gen/
 cadify-output/
+/build/
 *.tsbuildinfo
 
 # Python (CAD worker)

@@ -69,7 +69,21 @@ fn failed(code: &str, message: &str, detail: Option<String>) -> Value {
     json!({ "type": "failed", "error": error })
 }
 
-/// Resolves the worker command: $CADIFY_WORKER_CMD, then a bundled script,
+/// Worker shipped inside the app (release builds): the embedded Python
+/// runtime at `Resources/python` running `Resources/worker/cadify_worker.py`.
+/// `-B` keeps bytecode out of the signed bundle; `-E -s` ignore the user's
+/// PYTHON* variables and user site-packages so only bundled packages load.
+fn bundled_worker(resource_dir: &std::path::Path) -> Option<(String, Vec<String>)> {
+    let script = resource_dir.join("worker").join("cadify_worker.py");
+    if !script.is_file() {
+        return None;
+    }
+    let python = resource_dir.join("python").join("bin").join("python3");
+    let program = if python.is_file() { python.to_string_lossy().into_owned() } else { "python3".into() };
+    Some((program, vec!["-B".into(), "-E".into(), "-s".into(), script.to_string_lossy().into_owned()]))
+}
+
+/// Resolves the worker command: $CADIFY_WORKER_CMD, then a bundled worker,
 /// then (debug builds only) the repository's worker with its own venv.
 fn worker_command<R: Runtime>(app: &AppHandle<R>) -> AppResult<(String, Vec<String>)> {
     if let Ok(cmd) = std::env::var("CADIFY_WORKER_CMD") {
@@ -79,9 +93,8 @@ fn worker_command<R: Runtime>(app: &AppHandle<R>) -> AppResult<(String, Vec<Stri
         }
     }
     if let Ok(dir) = app.path().resource_dir() {
-        let script = dir.join("worker").join("cadify_worker.py");
-        if script.is_file() {
-            return Ok(("python3".into(), vec![script.to_string_lossy().into_owned()]));
+        if let Some(command) = bundled_worker(&dir) {
+            return Ok(command);
         }
     }
     #[cfg(debug_assertions)]
@@ -264,4 +277,28 @@ pub async fn generation_answer(state: State<'_, AppState>, run_id: String, answe
         .map_err(|e| AppError::new("WORKER_PROTOCOL", "Could not send answers to the worker").with_detail(e.to_string()))?;
     pipe.flush().await.map_err(|e| AppError::new("WORKER_PROTOCOL", "Could not send answers").with_detail(e.to_string()))?;
     Ok(())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::bundled_worker;
+    use std::fs;
+
+    #[test]
+    fn bundled_worker_prefers_embedded_python() {
+        let dir = tempfile::tempdir().unwrap();
+        assert!(bundled_worker(dir.path()).is_none());
+
+        fs::create_dir_all(dir.path().join("worker")).unwrap();
+        fs::write(dir.path().join("worker/cadify_worker.py"), "").unwrap();
+        let (program, args) = bundled_worker(dir.path()).unwrap();
+        assert_eq!(program, "python3");
+        assert_eq!(&args[..3], ["-B", "-E", "-s"]);
+        assert!(args[3].ends_with("worker/cadify_worker.py"));
+
+        fs::create_dir_all(dir.path().join("python/bin")).unwrap();
+        fs::write(dir.path().join("python/bin/python3"), "").unwrap();
+        let (program, _) = bundled_worker(dir.path()).unwrap();
+        assert!(program.ends_with("python/bin/python3"));
+    }
 }
