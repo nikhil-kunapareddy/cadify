@@ -1,0 +1,3 @@
+# CADify CAD worker. Python 3.10-3.12 (CadQuery wheels).
+cadquery>=2.8
+anthropic>=2.13

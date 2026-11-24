@@ -1,0 +1,38 @@
+{
+  "is_engineering_drawing": true,
+  "part_name": "Mounting bracket MB-120-A",
+  "drawing_type": "Multi-view orthographic · third-angle projection",
+  "units": "mm",
+  "views": ["Front", "Top", "Right", "Isometric (ref)"],
+  "overall": { "length_mm": 120, "width_mm": 80, "height_mm": 70 },
+  "dimensions_read": 17,
+  "features": [
+    { "kind": "extrusion", "label": "Base plate", "count": 1, "parameters": "120 × 80 × 10", "inferred": false },
+    { "kind": "extrusion", "label": "Upright wall", "count": 1, "parameters": "120 × 12 × 70", "inferred": false },
+    { "kind": "hole", "label": "Through hole", "count": 4, "parameters": "Ø9 THRU", "inferred": false },
+    { "kind": "hole", "label": "Through hole", "count": 2, "parameters": "Ø6.5 THRU", "inferred": false },
+    { "kind": "cylinder", "label": "Bore", "count": 1, "parameters": "Ø24 THRU", "inferred": false },
+    { "kind": "slot", "label": "Slot", "count": 1, "parameters": "30 × 10", "inferred": false },
+    { "kind": "fillet", "label": "Corner fillet", "count": 2, "parameters": "R8", "inferred": false },
+    { "kind": "fillet", "label": "Bend fillet", "count": 1, "parameters": "R6", "inferred": false },
+    { "kind": "chamfer", "label": "Bore chamfer", "count": 2, "parameters": "1 × 45°", "inferred": false }
+  ],
+  "questions": [
+    {
+      "id": "slot-depth",
+      "prompt": "How deep is the 30 × 10 slot?",
+      "context": "Sheet 1 · Top view; sheet 2 note 4",
+      "kind": "choice",
+      "options": [
+        { "id": "through", "label": "Through all", "description": "Matches sheet 2, note 4" },
+        { "id": "blind-5", "label": "Blind, 5 mm", "description": "Pocket from the top face" }
+      ],
+      "suggested_option_id": "through",
+      "suggested_value_mm": null,
+      "blocking": true
+    }
+  ],
+  "assumptions": ["Edge breaks of 0.3 mm (note 1) are not modeled"],
+  "can_build": true,
+  "missing_information": ""
+}

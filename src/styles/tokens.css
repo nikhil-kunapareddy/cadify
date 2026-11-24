@@ -1,0 +1,107 @@
+/*
+ * CADify design tokens.
+ *
+ * Surfaces step from app (deepest) -> panel -> elevated (popovers/dialogs).
+ * "sunken" is for wells and inputs; "canvas" is the drawing backdrop;
+ * "viewport" is the 3D background. Lines are translucent so they read
+ * consistently on every surface.
+ */
+:root {
+  --font-ui: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", "Segoe UI", system-ui, sans-serif;
+  --font-code: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+
+  /* Sizes shared with JS (layout constants live in src/config/layout.ts). */
+  --header-height: 44px;
+  --statusbar-height: 24px;
+}
+
+:root,
+[data-theme="dark"] {
+  --c-app: #0d0e10;
+  --c-panel: #141518;
+  --c-elevated: #1b1c20;
+  --c-sunken: #0a0b0d;
+  --c-canvas: #101114;
+  --c-hover: rgb(255 255 255 / 0.055);
+  --c-active: rgb(255 255 255 / 0.09);
+  --c-line: rgb(255 255 255 / 0.075);
+  --c-line-strong: rgb(255 255 255 / 0.13);
+  --c-line-subtle: rgb(255 255 255 / 0.045);
+  --c-glass: rgb(27 28 32 / 0.82);
+  --c-btn: #222328;
+  --c-btn-hover: #2a2b31;
+
+  --c-fg: #ececee;
+  --c-fg-muted: #a3a6ad;
+  --c-fg-subtle: #70737b;
+  --c-fg-faint: #4b4e55;
+
+  --c-accent: #4f8cff;
+  --c-accent-hover: #6a9dff;
+  --c-accent-fg: #ffffff;
+  --c-accent-soft: rgb(79 140 255 / 0.14);
+  --c-accent-line: rgb(79 140 255 / 0.42);
+
+  --c-success: #3fb950;
+  --c-success-soft: rgb(63 185 80 / 0.13);
+  --c-warning: #d6a23a;
+  --c-warning-soft: rgb(214 162 58 / 0.13);
+  --c-danger: #f26b63;
+  --c-danger-hover: #f5847d;
+  --c-danger-soft: rgb(242 107 99 / 0.13);
+
+  --c-viewport: #15161a;
+  --c-scrollbar: rgb(255 255 255 / 0.12);
+  --c-scrollbar-hover: rgb(255 255 255 / 0.2);
+
+  --shadow-1: 0 1px 1px rgb(0 0 0 / 0.25);
+  --shadow-2: 0 1px 2px rgb(0 0 0 / 0.3), 0 2px 8px -2px rgb(0 0 0 / 0.3);
+  --shadow-3: 0 0 0 1px rgb(255 255 255 / 0.07), 0 10px 28px -6px rgb(0 0 0 / 0.6), 0 2px 6px rgb(0 0 0 / 0.3);
+  --shadow-4: 0 0 0 1px rgb(255 255 255 / 0.08), 0 28px 72px -12px rgb(0 0 0 / 0.7);
+  --shadow-paper: 0 0 0 1px rgb(0 0 0 / 0.35), 0 8px 30px -6px rgb(0 0 0 / 0.55);
+}
+
+[data-theme="light"] {
+  --c-app: #efeff1;
+  --c-panel: #f9f9fa;
+  --c-elevated: #ffffff;
+  --c-sunken: #e9e9ec;
+  --c-canvas: #e4e4e7;
+  --c-hover: rgb(0 0 0 / 0.045);
+  --c-active: rgb(0 0 0 / 0.075);
+  --c-line: rgb(0 0 0 / 0.085);
+  --c-line-strong: rgb(0 0 0 / 0.14);
+  --c-line-subtle: rgb(0 0 0 / 0.05);
+  --c-glass: rgb(255 255 255 / 0.85);
+  --c-btn: #ffffff;
+  --c-btn-hover: #f3f3f5;
+
+  --c-fg: #18191c;
+  --c-fg-muted: #55585f;
+  --c-fg-subtle: #83868d;
+  --c-fg-faint: #b0b2b8;
+
+  --c-accent: #2563eb;
+  --c-accent-hover: #1d4fd7;
+  --c-accent-fg: #ffffff;
+  --c-accent-soft: rgb(37 99 235 / 0.1);
+  --c-accent-line: rgb(37 99 235 / 0.38);
+
+  --c-success: #1a7f37;
+  --c-success-soft: rgb(26 127 55 / 0.1);
+  --c-warning: #9a6700;
+  --c-warning-soft: rgb(154 103 0 / 0.1);
+  --c-danger: #cf222e;
+  --c-danger-hover: #b31d28;
+  --c-danger-soft: rgb(207 34 46 / 0.09);
+
+  --c-viewport: #dfe0e3;
+  --c-scrollbar: rgb(0 0 0 / 0.14);
+  --c-scrollbar-hover: rgb(0 0 0 / 0.24);
+
+  --shadow-1: 0 1px 1px rgb(0 0 0 / 0.06);
+  --shadow-2: 0 1px 2px rgb(0 0 0 / 0.06), 0 2px 8px -2px rgb(0 0 0 / 0.08);
+  --shadow-3: 0 0 0 1px rgb(0 0 0 / 0.07), 0 10px 28px -6px rgb(0 0 0 / 0.18), 0 2px 6px rgb(0 0 0 / 0.06);
+  --shadow-4: 0 0 0 1px rgb(0 0 0 / 0.07), 0 28px 72px -12px rgb(0 0 0 / 0.28);
+  --shadow-paper: 0 0 0 1px rgb(0 0 0 / 0.08), 0 6px 24px -6px rgb(0 0 0 / 0.2);
+}

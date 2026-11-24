@@ -1,0 +1,55 @@
+# ---------------------------------------------------------------- secrets
+# API keys and credentials must never be committed. The app stores the
+# Anthropic key in the macOS Keychain; worker/.env is for local terminal runs.
+.env
+.env.*
+!.env.example
+*.env
+*.pem
+*.key
+*.p8
+*.p12
+*.pfx
+*.keystore
+*.jks
+*.mobileprovision
+*.provisionprofile
+secrets.*
+*secret*.json
+credentials.json
+*.credentials
+.netrc
+.npmrc
+.pypirc
+# Tauri updater signing keys
+*.tauri.key
+tauri-signing*
+
+# ---------------------------------------------------------------- generated
+node_modules/
+dist/
+dist-ssr/
+coverage/
+.vite/
+/public/pdfjs/
+src-tauri/target/
+src-tauri/gen/
+cadify-output/
+*.tsbuildinfo
+
+# Python (CAD worker)
+worker/.venv/
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# ---------------------------------------------------------------- local / OS
+*.local
+*.log
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.swp
+.claude/settings.local.json
