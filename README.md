@@ -98,3 +98,7 @@ uv venv .venv && uv pip install --python .venv/bin/python cadquery matplotlib
 .venv/bin/python samples/scripts/build_sample.py samples
 cp samples/mounting-bracket.{stl,step,meta.json} src/services/mock/assets/
 ```
+
+## License
+
+MIT. See [LICENSE](LICENSE).

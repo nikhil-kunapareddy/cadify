@@ -3,7 +3,7 @@ name = "cadify"
 version = "0.1.0"
 description = "CADify — AI-powered engineering drawing to 3D CAD conversion"
 authors = ["CADify"]
-license = "UNLICENSED"
+license = "MIT"
 edition = "2021"
 rust-version = "1.80"
 
